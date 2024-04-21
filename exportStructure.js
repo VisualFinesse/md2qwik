@@ -1,5 +1,7 @@
 const fs = require("fs");
 const path = require("path");
+require('dotenv').config();
+
 
 // Function to traverse the directory structure
 async function traverseDirectory(dir, prefix = "") {
