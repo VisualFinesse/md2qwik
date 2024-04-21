@@ -1,16 +1,14 @@
+import LinkTree from "test/src/components/LinkTree";
+import LinkTree from "test/src/components/LinkTree";
 import { component$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 
-import Counter from "../components/starter/counter/counter";
-import Hero from "../components/starter/hero/hero";
-import Infobox from "../components/starter/infobox/infobox";
-import Starter from "../components/starter/next-steps/next-steps";
 
 export default component$(() => {
   return (
     <>
-      <Hero />
-      <Starter />
+      <Hero /> // We removed this import. The script needs to clean this up.
+      <Starter /> // We removed this import. The script needs to clean this up.
 
       <div role="presentation" class="ellipsis"></div>
       <div role="presentation" class="ellipsis ellipsis-purple"></div>
@@ -20,11 +18,11 @@ export default component$(() => {
           You can <span class="highlight">count</span>
           <br /> on me
         </h3>
-        <Counter />
+        <Counter /> // We removed this import. The script needs to clean this up.
       </div>
 
       <div class="container container-flex">
-        <Infobox>
+        <Infobox> // We removed this import. The script needs to clean this up.
           <div q:slot="title" class="icon icon-cli">
             CLI Commands
           </div>
@@ -50,10 +48,10 @@ export default component$(() => {
               Runs the qwik CLI to add integrations
             </p>
           </>
-        </Infobox>
+        </Infobox> // We removed this import. The script needs to clean this up.
 
         <div>
-          <Infobox>
+          <Infobox> // We removed this import. The script needs to clean this up.
             <div q:slot="title" class="icon icon-apps">
               Example Apps
             </div>
@@ -61,9 +59,9 @@ export default component$(() => {
               Have a look at the <a href="/demo/flower">Flower App</a> or the{" "}
               <a href="/demo/todolist">Todo App</a>.
             </p>
-          </Infobox>
+          </Infobox> // We removed this import. The script needs to clean this up.
 
-          <Infobox>
+          <Infobox> // We removed this import. The script needs to clean this up.
             <div q:slot="title" class="icon icon-community">
               Community
             </div>
@@ -94,7 +92,7 @@ export default component$(() => {
                 </a>
               </li>
             </ul>
-          </Infobox>
+          </Infobox> // We removed this import. The script needs to clean this up.
         </div>
       </div>
     </>
@@ -102,11 +100,11 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-  title: "Welcome to Qwik",
+  title: "Welcome to Qwik", // This needs to be changed based on the markdown file contents.
   meta: [
     {
-      name: "description",
-      content: "Qwik site description",
+      name: "description", // this too
+      content: "Qwik site description", // and this
     },
   ],
 };

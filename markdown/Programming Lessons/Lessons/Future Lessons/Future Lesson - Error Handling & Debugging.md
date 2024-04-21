@@ -1,0 +1,16 @@
+---
+tags:
+  - Lesson
+---
+- How to read a stack trace
+- Try/Catch
+- Some common types of errors
+	- Null pointers
+	- Off by one
+	- Index out of range
+	- Parsing issues
+	- more if I can think of them
+- The debug utility
+	- Step over
+	- Step into
+	- Watch

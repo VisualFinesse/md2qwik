@@ -23,32 +23,22 @@ async function findMarkdownDirectory() {
     ?.name;
 }
 
-async function clearBoilerplate(projectDir) {
-  // Path to the default Qwik boilerplate components and routes
-  const componentsPath = path.join(projectDir, "src", "routes");
-  const defaultComponents = ["home", "about", "settings"];
+async function removeSpecifiedDirectoriesAndFiles(projectDir) {
+  console.log(`Removing directories from project directory: ${projectDir}`); // Debug: Log the project directory
+  const pathsToRemove = [
+    path.join(projectDir, "src", "components", "router-head"),
+    path.join(projectDir, "src", "components", "starter"),
+    path.join(projectDir, "src", "routes", "demo"),
+  ];
 
-  // Remove each default component directory
-  for (const component of defaultComponents) {
-    await fs.rm(path.join(componentsPath, component), {
-      recursive: true,
-      force: true,
-    });
-  }
-
-  // Clear the default root route file if needed
-  const rootRoutePath = path.join(componentsPath, "root.tsx");
-  if (await fileExists(rootRoutePath)) {
-    await fs.unlink(rootRoutePath);
-  }
-}
-
-async function fileExists(filePath) {
-  try {
-    await fs.access(filePath);
-    return true;
-  } catch {
-    return false;
+  for (const fullPath of pathsToRemove) {
+    try {
+      await fs.access(fullPath); // Check if the path exists
+      await fs.rm(fullPath, { recursive: true, force: true });
+      console.log(`Successfully removed: ${fullPath}`);
+    } catch (err) {
+      console.error(`Error processing ${fullPath}: ${err.message}`);
+    }
   }
 }
 
@@ -58,12 +48,13 @@ async function integrateMarkdownComponents(projectDir) {
     console.log("No markdown directory found.");
     return;
   }
-
   const componentsDir = path.join(projectDir, "src", "components");
-  await clearBoilerplate(projectDir);
+  console.log(
+    "Components Directory defined in integrateMarkdownComponents:",
+    componentsDir
+  );
   await convertMarkdownToComponents(markdownDir, componentsDir);
   await generateLinkTree(componentsDir, path.join(projectDir, "src"));
-  console.log("Markdown integration completed!");
 }
 
 async function convertMarkdownToComponents(markdownDirPath, componentsDir) {
@@ -77,10 +68,18 @@ async function convertMarkdownToComponents(markdownDirPath, componentsDir) {
       const markdown = await fs.readFile(fullPath, "utf8");
       const htmlContent = marked.parse(markdown);
       const componentName = entry.name.replace(/\s+/g, "_").replace(".md", "");
-      const componentPath = path.join(componentsDir, `${componentName}.tsx`);
+      const componentDir = path.join(componentsDir, componentName);
+      const componentPath = path.join(componentDir, `${componentName}.tsx`);
+      const componentCSSPath = path.join(componentDir, `${componentName}.css`);
+
       const componentCode = createComponentCode(htmlContent, componentName);
-      await fs.mkdir(componentsDir, { recursive: true });
+      await fs.mkdir(componentDir, { recursive: true });
       await fs.writeFile(componentPath, componentCode, "utf8");
+      await fs.writeFile(
+        componentCSSPath,
+        `/* Styles for ${componentName} */`,
+        "utf8"
+      );
     }
   }
 }
@@ -124,11 +123,137 @@ function escapeBackticks(str) {
   return str.replace(/`/g, "\\`");
 }
 
+async function modifyRootComponent(componentsDir, srcDir) {
+  const components = await gatherComponents(componentsDir);
+  const imports = components
+    .map((componentPath) => {
+      const componentName = path.basename(componentPath, ".tsx");
+      return `import { ${componentName} } from './components/${componentName}';`;
+    })
+    .join("\n");
+
+  const routes = components
+    .map((componentPath) => {
+      const componentName = path.basename(componentPath, ".tsx");
+      return `{ path: '/${componentName}', component: ${componentName} }`;
+    })
+    .join(",\n");
+
+  const rootComponentCode = `
+import { component$, Slot } from '@builder.io/qwik';
+import { Router, Route } from '@builder.io/qwik-city';
+
+${imports}
+
+export default component$(() => {
+  return (
+    <Router>
+      <Route path="/" component={Home} />
+      ${routes}
+      <Slot />
+    </Router>
+  );
+});
+  `.trim();
+
+  await fs.writeFile(path.join(srcDir, "root.tsx"), rootComponentCode, "utf8");
+  console.log("Root component modified with dynamic routes!");
+}
+
+async function removeUnwantedImports(filePath) {
+  let fileContent = await fs.readFile(filePath, "utf8");
+  const linesToRemove = [
+    'import Counter from "../components/starter/counter/counter";',
+    'import Hero from "../components/starter/hero/hero";',
+    'import Infobox from "../components/starter/infobox/infobox";',
+    'import Starter from "../components/starter/next-steps/next-steps";',
+  ];
+  const newLines = fileContent
+    .split("\n")
+    .filter((line) => !linesToRemove.includes(line.trim()));
+  await fs.writeFile(filePath, newLines.join("\n"), "utf8");
+}
+
+async function addNewImports(filePath, componentsDir) {
+  const entries = await gatherComponents(componentsDir);
+  const imports = entries
+    .map((componentPath) => {
+      const componentName = path.basename(componentPath, ".tsx");
+      return `import ${componentName} from "${componentPath
+        .replace(/\\/g, "/")
+        .replace(".tsx", "")}";`;
+    })
+    .join("\n");
+
+  let fileContent = await fs.readFile(filePath, "utf8");
+  fileContent = imports + "\n" + fileContent;
+  await fs.writeFile(filePath, fileContent, "utf8");
+}
+
+async function updateIndexFile(indexPath, componentsDir) {
+  let indexContent = await fs.readFile(indexPath, "utf8");
+
+  // Gather all components that might be used
+  const components = await gatherComponents(componentsDir);
+
+  // Building new imports section dynamically
+  const importStatements = components
+    .map((componentPath) => {
+      const componentName = path.basename(componentPath, ".tsx");
+      return `import ${componentName} from "${componentPath
+        .replace(/\\/g, "/")
+        .replace(".tsx", "")}";`;
+    })
+    .join("\n");
+
+  // Rebuilding the index file content
+  // This is simplified: in practice, you would need to parse and reconstruct the JSX carefully
+  indexContent =
+    importStatements + "\n" + indexContent.split("\n").slice(1).join("\n");
+
+  await fs.writeFile(indexPath, indexContent, "utf8");
+}
+
+function extractMetadata(markdownContent) {
+  // Assuming the first line might be a title or similar
+  const firstLine = markdownContent.split("\n")[0];
+  return {
+    title: firstLine.replace("# ", ""),
+    description: "Description derived from Markdown content",
+  };
+}
+
+async function updateHead(indexPath, markdownContent) {
+  const metadata = extractMetadata(markdownContent);
+  let content = await fs.readFile(indexPath, "utf8");
+  content = content.replace("Welcome to Qwik", metadata.title);
+  content = content.replace("Qwik site description", metadata.description);
+
+  await fs.writeFile(indexPath, content, "utf8");
+}
+
 async function main() {
   const projectDir = await askQuestion(
     "Enter the path to your Qwik project directory: "
   );
+  if (!projectDir) {
+    console.error("No project directory provided. Exiting.");
+    return;
+  }
+  const indexPath = path.join(projectDir, "src", "routes", "index.tsx");
+  const componentsDir = path.join(projectDir, "src", "components");
+  const srcDir = path.join(projectDir, "src");
+
+  console.log("defined in main: Components Directory:", componentsDir);
+  console.log("defined in main: Src Directory:", srcDir);
+
+  await removeSpecifiedDirectoriesAndFiles(projectDir.trim());
   await integrateMarkdownComponents(projectDir.trim());
+  await removeUnwantedImports(indexPath);
+  await addNewImports(indexPath, componentsDir);
+  await modifyRootComponent(componentsDir, srcDir);
+  await updateIndexFile(indexPath, componentsDir);
+  await updateHead(indexPath, markdownContent);
 }
 
 main();
