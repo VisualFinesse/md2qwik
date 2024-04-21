@@ -1,0 +1,15 @@
+# Node.js dependencies
+node_modules/
+
+# Logs
+npm-debug.log*
+
+# Lock files
+package-lock.json
+
+# dotenv environment variables file
+.env
+.env.test
+
+# Optional npm cache directory
+.npm

@@ -1,0 +1,15 @@
+{
+  "name": "md2qwik",
+  "version": "1.0.0",
+  "description": "This script automates the process of converting a directory of markdown files into a Qwik project. It dynamically creates Qwik components for each markdown file, maintaining the directory structure in the components folder. The script also generates a link tree for easy navigation among the created components.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "marked": "^12.0.2"
+  }
+}
