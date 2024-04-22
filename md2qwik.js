@@ -3,7 +3,7 @@ const fs = require("fs").promises;
 const path = require("path");
 const { marked } = require("marked");
 const axios = require("axios");
-const traverseDirectory = require("./exportStructure.js");
+const { traverseDirectory } = require("./exportStructure.js");
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -217,7 +217,7 @@ async function updateIndexFile(indexPath, componentsDir) {
 }
 
 // function extractMetadata(markdownContent) {
-      // Assuming the first line might be a title or similar
+// Assuming the first line might be a title or similar
 //   const firstLine = markdownContent.split("\n")[0];
 //   return {
 //     title: firstLine.replace("# ", ""),

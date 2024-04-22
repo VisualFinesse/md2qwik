@@ -51,3 +51,5 @@ async function exportDirectoryStructure(baseDir, outputFile) {
 // const projectDir = "./markdown"; // Replace with your project directory
 // const outputFilePath = "./directory-structure.txt"; // Output file path
 // exportDirectoryStructure(projectDir, outputFilePath);
+
+module.exports = { traverseDirectory, exportDirectoryStructure };
