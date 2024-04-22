@@ -1,7 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-require('dotenv').config();
-
+require("dotenv").config();
 
 // Function to traverse the directory structure
 async function traverseDirectory(dir, prefix = "") {
@@ -10,7 +9,22 @@ async function traverseDirectory(dir, prefix = "") {
   });
   let structure = "";
 
+  // Properly initialize the Set with multiple values
+  const jsignore = new Set([
+    "node_modules",
+    ".git",
+    ".gitignore",
+    ".env",
+    ".env.local",
+    "logs",
+  ]);
+
   for (const dirent of directoryContents) {
+    if (jsignore.has(dirent.name)) {
+      // Use 'has' method for checking Set membership
+      continue; // Skip the iteration if the directory is in the ignore list
+    }
+
     const fullPath = path.join(dir, dirent.name);
     if (dirent.isDirectory()) {
       structure += `${prefix}- ${dirent.name}\n`;
@@ -33,8 +47,7 @@ async function exportDirectoryStructure(baseDir, outputFile) {
     console.error("Error writing directory structure:", error);
   }
 }
-
 // Example usage:
-const projectDir = "./"; // Replace with your project directory
-const outputFilePath = "./directory-structure.txt"; // Output file path
-exportDirectoryStructure(projectDir, outputFilePath);
+// const projectDir = "./markdown"; // Replace with your project directory
+// const outputFilePath = "./directory-structure.txt"; // Output file path
+// exportDirectoryStructure(projectDir, outputFilePath);

@@ -13,6 +13,7 @@ This script automates the process of converting a directory of markdown files in
 
 - **Node.js**: The script requires Node.js to be installed on your machine.
 - **NPM**: Node Package Manager (NPM) must be installed to handle dependencies.
+- **openAI API Key**: You need an OpenAI API key to use the script. You can get one by signing up at [OpenAI](https://platform.openai.com/). Place this in the **.env** file in the root directory of the project.
 
 ## Setup
 

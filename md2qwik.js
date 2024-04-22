@@ -2,6 +2,8 @@ const readline = require("readline");
 const fs = require("fs").promises;
 const path = require("path");
 const { marked } = require("marked");
+const axios = require("axios");
+const traverseDirectory = require("./exportStructure.js");
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -214,14 +216,14 @@ async function updateIndexFile(indexPath, componentsDir) {
   await fs.writeFile(indexPath, indexContent, "utf8");
 }
 
-function extractMetadata(markdownContent) {
-  // Assuming the first line might be a title or similar
-  const firstLine = markdownContent.split("\n")[0];
-  return {
-    title: firstLine.replace("# ", ""),
-    description: "Description derived from Markdown content",
-  };
-}
+// function extractMetadata(markdownContent) {
+      // Assuming the first line might be a title or similar
+//   const firstLine = markdownContent.split("\n")[0];
+//   return {
+//     title: firstLine.replace("# ", ""),
+//     description: "Description derived from Markdown content",
+//   };
+// }
 
 async function updateHead(indexPath, markdownContent) {
   const metadata = extractMetadata(markdownContent);
@@ -230,6 +232,58 @@ async function updateHead(indexPath, markdownContent) {
   content = content.replace("Qwik site description", metadata.description);
 
   await fs.writeFile(indexPath, content, "utf8");
+}
+
+async function fetchMetadataFromChatGPT(fileStructure) {
+  const prompt = `Please review the file structure and return ONLY the metadata in the following format:
+
+export const head: DocumentHead = {
+  title: "Welcome to Qwik",
+  meta: [
+    {
+      name: "description",
+      content: "Qwik site description",
+    },
+  ],
+};
+
+File Structure:
+${fileStructure}`;
+
+  try {
+    const response = await axios.post(
+      "https://api.openai.com/v1/engines/davinci-codex/completions",
+      {
+        prompt: prompt,
+        max_tokens: 2000,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data.choices[0].text.trim();
+  } catch (error) {
+    console.error("Failed to fetch metadata from ChatGPT:", error);
+    return null;
+  }
+}
+
+async function updateIndexTSX(indexPath, metadata) {
+  const content = `import { component$ } from "@builder.io/qwik";
+import type { DocumentHead } from "@builder.io/qwik-city";
+
+${metadata}
+
+export default component$(() => {
+  // Your component rendering logic here
+});
+
+const head: DocumentHead = headMetadata; // Assuming metadata is formatted to fit this use`;
+
+  fs.writeFileSync(indexPath, content);
 }
 
 async function main() {
@@ -254,6 +308,8 @@ async function main() {
   await modifyRootComponent(componentsDir, srcDir);
   await updateIndexFile(indexPath, componentsDir);
   await updateHead(indexPath, markdownContent);
+  await fetchMetadataFromChatGPT(await traverseDirectory("./markdown"));
+  await updateIndexTSX(indexPath, metadata);
 }
 
 main();

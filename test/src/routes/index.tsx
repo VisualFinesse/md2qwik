@@ -1,6 +1,7 @@
 import LinkTree from "test/src/components/LinkTree";
 import LinkTree from "test/src/components/LinkTree";
 import LinkTree from "test/src/components/LinkTree";
+import LinkTree from "test/src/components/LinkTree";
 import { component$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 

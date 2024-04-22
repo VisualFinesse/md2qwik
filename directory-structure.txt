@@ -1,0 +1,271 @@
+- directory-structure.txt
+- exportStructure.js
+- markdown
+--- Programming Lessons
+----- Drawing 2024-02-21 18.57.38.excalidraw.md
+----- Images
+------- Lesson 5
+--------- Screenshot 1.png
+--------- Screenshot 2.png
+--------- Screenshot 3.png
+--------- Screenshot 4.png
+----- Lessons
+------- Future Lessons
+--------- Future Lesson - Advanced Methods and Keywords.md
+--------- Future Lesson - Data Structures
+----------- The IEnumerable Interface.md
+--------- Future Lesson - Data Structures.md
+--------- Future Lesson - Design Patterns
+----------- Behavioral Design Patterns.md
+----------- Creational Design Patterns.md
+----------- Structural Design Patterns.md
+--------- Future Lesson - Design Patterns.md
+--------- Future Lesson - Error Handling & Debugging.md
+--------- Future Lesson - Functional Programming & Reflection.md
+--------- Future Lesson - Garbage Collection.md
+--------- Future Lesson - Generic Objects & More
+----------- Generic Types.md
+----------- Reference Types.md
+----------- Value Types.md
+--------- Future Lesson - Generics and Advanced Classes.md
+--------- Future Lesson - Inheritance.md
+--------- Future Lesson - Recursion.md
+------- Lesson 0 - Environment Setup.md
+------- Lesson 1 - Variables and Expressions
+--------- Booleans.md
+--------- Characters.md
+--------- Data Types.md
+--------- Numeric Types
+----------- Doubles.md
+----------- Integers.md
+--------- Numeric Types.md
+--------- Strings.md
+--------- Variables.md
+------- Lesson 1 - Variables and Expressions.md
+------- Lesson 2 - Control Flow
+--------- Control Flow Structures
+----------- If Statements.md
+----------- Loops
+------------- Do-While Loop.md
+------------- For Loop.md
+------------- While Loop.md
+----------- Switch Case Statements.md
+--------- Control Flow Structures.md
+------- Lesson 2 - Control Flow.md
+------- Lesson 3 - Arrays and Lists
+--------- Arrays.md
+--------- ForEach Loop.md
+--------- Lists.md
+------- Lesson 3 - Arrays and Lists.md
+------- Lesson 3.5 - Checkpoint 1.md
+------- Lesson 4 - Strings and Math
+--------- Math Functions.md
+--------- String Functions.md
+------- Lesson 4 - Strings and Math.md
+------- Lesson 5 - Objects and Methods
+--------- Classes and Objects.md
+--------- Methods.md
+------- Lesson 5 - Objects and Methods.md
+------- Lesson 5.5 - Printing Strings
+--------- Printing Strings.md
+------- Lesson 5.5 - Project 1.md
+------- Lesson 5.5 - Project 1.md.bak
+----- Untitled.md
+----- Welcome to the class.md
+- md2qwik.js
+- package-lock.json
+- package.json
+- readme.md
+- test
+--- .eslintignore
+--- .eslintrc.cjs
+--- .prettierignore
+--- .vscode
+----- extensions.json
+----- launch.json
+----- qwik-city.code-snippets
+----- qwik.code-snippets
+----- settings.json
+--- directory-structure.txt
+--- exportStructure.js
+--- package-lock.json
+--- package.json
+--- public
+----- favicon.svg
+----- fonts
+------- poppins-400.woff2
+------- poppins-500.woff2
+------- poppins-700.woff2
+----- manifest.json
+----- robots.txt
+--- README.md
+--- src
+----- components
+------- LinkTree.tsx
+------- Programming_Lessons
+--------- Drawing_2024-02-21_18.57.38.excalidraw
+----------- Drawing_2024-02-21_18.57.38.excalidraw.css
+----------- Drawing_2024-02-21_18.57.38.excalidraw.tsx
+--------- Lessons
+----------- Future_Lessons
+------------- Future_Lesson_-_Advanced_Methods_and_Keywords
+--------------- Future_Lesson_-_Advanced_Methods_and_Keywords.css
+--------------- Future_Lesson_-_Advanced_Methods_and_Keywords.tsx
+------------- Future_Lesson_-_Data_Structures
+--------------- Future_Lesson_-_Data_Structures.css
+--------------- Future_Lesson_-_Data_Structures.tsx
+--------------- The_IEnumerable_Interface
+----------------- The_IEnumerable_Interface.css
+----------------- The_IEnumerable_Interface.tsx
+------------- Future_Lesson_-_Design_Patterns
+--------------- Behavioral_Design_Patterns
+----------------- Behavioral_Design_Patterns.css
+----------------- Behavioral_Design_Patterns.tsx
+--------------- Creational_Design_Patterns
+----------------- Creational_Design_Patterns.css
+----------------- Creational_Design_Patterns.tsx
+--------------- Future_Lesson_-_Design_Patterns.css
+--------------- Future_Lesson_-_Design_Patterns.tsx
+--------------- Structural_Design_Patterns
+----------------- Structural_Design_Patterns.css
+----------------- Structural_Design_Patterns.tsx
+------------- Future_Lesson_-_Error_Handling_&_Debugging
+--------------- Future_Lesson_-_Error_Handling_&_Debugging.css
+--------------- Future_Lesson_-_Error_Handling_&_Debugging.tsx
+------------- Future_Lesson_-_Functional_Programming_&_Reflection
+--------------- Future_Lesson_-_Functional_Programming_&_Reflection.css
+--------------- Future_Lesson_-_Functional_Programming_&_Reflection.tsx
+------------- Future_Lesson_-_Garbage_Collection
+--------------- Future_Lesson_-_Garbage_Collection.css
+--------------- Future_Lesson_-_Garbage_Collection.tsx
+------------- Future_Lesson_-_Generics_and_Advanced_Classes
+--------------- Future_Lesson_-_Generics_and_Advanced_Classes.css
+--------------- Future_Lesson_-_Generics_and_Advanced_Classes.tsx
+------------- Future_Lesson_-_Generic_Objects_&_More
+--------------- Generic_Types
+----------------- Generic_Types.css
+----------------- Generic_Types.tsx
+--------------- Reference_Types
+----------------- Reference_Types.css
+----------------- Reference_Types.tsx
+--------------- Value_Types
+----------------- Value_Types.css
+----------------- Value_Types.tsx
+------------- Future_Lesson_-_Inheritance
+--------------- Future_Lesson_-_Inheritance.css
+--------------- Future_Lesson_-_Inheritance.tsx
+------------- Future_Lesson_-_Recursion
+--------------- Future_Lesson_-_Recursion.css
+--------------- Future_Lesson_-_Recursion.tsx
+----------- Lesson_0_-_Environment_Setup
+------------- Lesson_0_-_Environment_Setup.css
+------------- Lesson_0_-_Environment_Setup.tsx
+----------- Lesson_1_-_Variables_and_Expressions
+------------- Booleans
+--------------- Booleans.css
+--------------- Booleans.tsx
+------------- Characters
+--------------- Characters.css
+--------------- Characters.tsx
+------------- Data_Types
+--------------- Data_Types.css
+--------------- Data_Types.tsx
+------------- Lesson_1_-_Variables_and_Expressions.css
+------------- Lesson_1_-_Variables_and_Expressions.tsx
+------------- Numeric_Types
+--------------- Doubles
+----------------- Doubles.css
+----------------- Doubles.tsx
+--------------- Integers
+----------------- Integers.css
+----------------- Integers.tsx
+--------------- Numeric_Types.css
+--------------- Numeric_Types.tsx
+------------- Strings
+--------------- Strings.css
+--------------- Strings.tsx
+------------- Variables
+--------------- Variables.css
+--------------- Variables.tsx
+----------- Lesson_2_-_Control_Flow
+------------- Control_Flow_Structures
+--------------- Control_Flow_Structures.css
+--------------- Control_Flow_Structures.tsx
+--------------- If_Statements
+----------------- If_Statements.css
+----------------- If_Statements.tsx
+--------------- Loops
+----------------- Do-While_Loop
+------------------- Do-While_Loop.css
+------------------- Do-While_Loop.tsx
+----------------- For_Loop
+------------------- For_Loop.css
+------------------- For_Loop.tsx
+----------------- While_Loop
+------------------- While_Loop.css
+------------------- While_Loop.tsx
+--------------- Switch_Case_Statements
+----------------- Switch_Case_Statements.css
+----------------- Switch_Case_Statements.tsx
+------------- Lesson_2_-_Control_Flow.css
+------------- Lesson_2_-_Control_Flow.tsx
+----------- Lesson_3.5_-_Checkpoint_1
+------------- Lesson_3.5_-_Checkpoint_1.css
+------------- Lesson_3.5_-_Checkpoint_1.tsx
+----------- Lesson_3_-_Arrays_and_Lists
+------------- Arrays
+--------------- Arrays.css
+--------------- Arrays.tsx
+------------- ForEach_Loop
+--------------- ForEach_Loop.css
+--------------- ForEach_Loop.tsx
+------------- Lesson_3_-_Arrays_and_Lists.css
+------------- Lesson_3_-_Arrays_and_Lists.tsx
+------------- Lists
+--------------- Lists.css
+--------------- Lists.tsx
+----------- Lesson_4_-_Strings_and_Math
+------------- Lesson_4_-_Strings_and_Math.css
+------------- Lesson_4_-_Strings_and_Math.tsx
+------------- Math_Functions
+--------------- Math_Functions.css
+--------------- Math_Functions.tsx
+------------- String_Functions
+--------------- String_Functions.css
+--------------- String_Functions.tsx
+----------- Lesson_5.5_-_Printing_Strings
+------------- Printing_Strings
+--------------- Printing_Strings.css
+--------------- Printing_Strings.tsx
+----------- Lesson_5.5_-_Project_1
+------------- Lesson_5.5_-_Project_1.css
+------------- Lesson_5.5_-_Project_1.tsx
+----------- Lesson_5_-_Objects_and_Methods
+------------- Classes_and_Objects
+--------------- Classes_and_Objects.css
+--------------- Classes_and_Objects.tsx
+------------- Lesson_5_-_Objects_and_Methods.css
+------------- Lesson_5_-_Objects_and_Methods.tsx
+------------- Methods
+--------------- Methods.css
+--------------- Methods.tsx
+--------- Untitled
+----------- Untitled.css
+----------- Untitled.tsx
+--------- Welcome_to_the_class
+----------- Welcome_to_the_class.css
+----------- Welcome_to_the_class.tsx
+----- entry.dev.tsx
+----- entry.preview.tsx
+----- entry.ssr.tsx
+----- global.css
+----- media
+------- thunder.png
+----- root.tsx
+----- routes
+------- index.tsx
+------- layout.tsx
+------- service-worker.ts
+------- styles.css
+--- tsconfig.json
+--- vite.config.ts
